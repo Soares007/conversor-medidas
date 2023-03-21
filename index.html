@@ -1,0 +1,128 @@
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversor de Medidas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="bg-dark bg-gradient">
+    <div class="container">
+        <nav class="navbar navbar-dark bg-dark fixed-top">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Conversor de Medidas</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
+                    data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar"
+                    aria-labelledby="offcanvasDarkNavbarLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Projetos</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="#">Conversor de Medidas</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="https://soares007.github.io/aula10-03-2023/">Calculadora
+                                    Simples</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link"
+                                    href="https://soares007.github.io/calculadora-imc-fatec/">Calculadora de IMC</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="https://github.com/Soares007">GitHub</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <div class="card col-5 container center position-absolute top-50 start-50 translate-middle">
+            <div class="card-body">
+                <h5 class="card-title">Converter medidas</h5>
+                <form>
+                    <div class="mb-3">
+                        <label for="exampleNumber1" class="form-label">Valor</label>
+                        <input type="number" class="form-control" id="valor" aria-describedby="numberHelp"
+                            placeholder="Insira o valor">
+                    </div>
+                    <div class="mb-3">
+                        <label for="medida1" class="form-label">De:</label>
+                        <select name="unidade1" id="unidade1" class="form-select">
+                            <option value="0" disabled>Selecione a medida</option>
+                            <option value="km/h">Quilômetros por hora</option>
+                            <option value="km/s">Quilômetros por segundo</option>
+                            <option value="m/s">Metros por segundo</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="medida2" class="form-label">Para:</label>
+                        <select name="unidade2" id="unidade2" class="form-select">
+                            <option value="0" disabled>Selecione a medida</option>
+                            <option value="km/h">Quilômetros por hora</option>
+                            <option value="km/s">Quilômetros por segundo</option>
+                            <option value="m/s">Metros por segundo</option>
+                        </select>
+                    </div>
+                    <div class="grid text-center">
+                        <input id="result" type="text" disabled placeholder="Resultado" class="mx-auto">
+                        <button id="converter" type="button" class="btn btn-secondary mx-auto">Converter</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function converterMedidas(valor, unidade1, unidade2) {
+            if (unidade1 === "km/h" && unidade2 === "m/s") {
+                return valor / 3,6;
+            } else if (unidade1 === "km/h" && unidade2 === "km/s") {
+                return valor / 3600;
+            } else if (unidade1 === "m/s" && unidade2 === "km/h") {
+                return valor * 3,6;
+            } else if (unidade1 === "m/s" && unidade2 === "km/s") {
+                return valor * 3280.84;
+            } else if (unidade1 === "km/s" && unidade2 === "m/s") {
+                return valor / 3.28084;
+            } else if (unidade1 === "km/s" && unidade2 === "km/h") {
+                return valor * 3600;
+            } else {
+                return valor;
+            }
+        }
+        const nuttonConverter = document.getElementById("converter");
+        const inputValor = document.getElementById("valor");
+        const unidadeEntradaSelect = document.getElementById("unidade1");
+        const unidadeconvertidaSelect = document.getElementById("unidade2");
+        const resultado = document.getElementById("result");
+
+        botaoConverter.addEventListener("click", function () {
+            const valor = parseFloat(inputValor.value);
+            const unidade1 = unidade1Select.value;
+            const unidade2 = unidade2Select.value;
+
+            const valorConvertido = converterUnidades(valor, unidade1, unidade2);
+
+            resultado.innerHTML = `${valor} ${unidade1} é igual a ${valorConvertido} ${unidade2}`;
+        });
+
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
