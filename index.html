@@ -57,27 +57,28 @@
                         <input type="number" class="form-control" id="valor" aria-describedby="numberHelp"
                             placeholder="Insira o valor">
                     </div>
-                    <div class="mb-3">
+                    <div class="mb-3 form-group">
                         <label for="medida1" class="form-label">De:</label>
-                        <select name="unidade1" id="unidade1" class="form-select">
+                        <select name="unidade1" id="medidaInput" class="form-select">
                             <option value="0" disabled>Selecione a medida</option>
-                            <option value="km/h">Quilômetros por hora</option>
-                            <option value="km/s">Quilômetros por segundo</option>
-                            <option value="m/s">Metros por segundo</option>
+                            <option value="Horas">Horas</option>
+                            <option value="Minutos">Minutos</option>
+                            <option value="Segundos">Segundos</option>
                         </select>
                     </div>
-                    <div class="mb-3">
-                        <label for="medida2" class="form-label">Para:</label>
-                        <select name="unidade2" id="unidade2" class="form-select">
+                    <div class="mb-3 form-group">
+                        <label for="medida1" class="form-label">Para:</label>
+                        <select name="unidade1" id="medidaConverted" class="form-select">
                             <option value="0" disabled>Selecione a medida</option>
-                            <option value="km/h">Quilômetros por hora</option>
-                            <option value="km/s">Quilômetros por segundo</option>
-                            <option value="m/s">Metros por segundo</option>
+                            <option value="Horas">Horas</option>
+                            <option value="Minutos">Minutos</option>
+                            <option value="Segundos">Segundos</option>
                         </select>
                     </div>
                     <div class="grid text-center">
-                        <input id="result" type="text" disabled placeholder="Resultado" class="mx-auto">
-                        <button id="converter" type="button" class="btn btn-secondary mx-auto">Converter</button>
+                        <p id="result"></p>
+                        <button id="convert" type="button" class="btn btn-secondary mx-auto">Converter</button>
+
                     </div>
                 </form>
             </div>
@@ -85,37 +86,38 @@
     </div>
 
     <script>
-        function converterMedidas(valor, unidade1, unidade2) {
-            if (unidade1 === "km/h" && unidade2 === "m/s") {
-                return valor / 3,6;
-            } else if (unidade1 === "km/h" && unidade2 === "km/s") {
-                return valor / 3600;
-            } else if (unidade1 === "m/s" && unidade2 === "km/h") {
-                return valor * 3,6;
-            } else if (unidade1 === "m/s" && unidade2 === "km/s") {
-                return valor * 3280.84;
-            } else if (unidade1 === "km/s" && unidade2 === "m/s") {
-                return valor / 3.28084;
-            } else if (unidade1 === "km/s" && unidade2 === "km/h") {
+        function converterMedidas(valor, medidaInserida, medidaConvertida) {
+            if (medidaInserida === "Horas" && medidaConvertida === "Minutos") {
+                return valor * 60;
+            } else if (medidaInserida === "Horas" && medidaConvertida === "Segundos") {
                 return valor * 3600;
+            } else if (medidaInserida === "Minutos" && medidaConvertida === "Horas") {
+                return valor / 60;
+            } else if (medidaInserida === "Minutos" && medidaConvertida === "Segundos") {
+                return valor * 60;
+            } else if (medidaInserida === "Segundos" && medidaConvertida === "Horas") {
+                return valor / 3600;
+            } else if (medidaInserida === "Segundos" && medidaConvertida === "Minutos") {
+                return valor / 60;
             } else {
                 return valor;
             }
         }
-        const nuttonConverter = document.getElementById("converter");
-        const inputValor = document.getElementById("valor");
-        const unidadeEntradaSelect = document.getElementById("unidade1");
-        const unidadeconvertidaSelect = document.getElementById("unidade2");
-        const resultado = document.getElementById("result");
+        const buttonConvert = document.getElementById("convert");
+        const outputValor = document.getElementById("valor");
+        const medidaInputSelect = document.getElementById("medidaInput");
+        const medidaConvertedSelect = document.getElementById("medidaConverted");
+        const resultadoFinal = document.getElementById("result");
 
-        botaoConverter.addEventListener("click", function () {
-            const valor = parseFloat(inputValor.value);
-            const unidade1 = unidade1Select.value;
-            const unidade2 = unidade2Select.value;
+        buttonConvert.addEventListener("click", function () {
+            const valor = parseFloat(outputValor.value);
+            const medidaInserida = medidaInputSelect.value;
+            const medidaConvertida = medidaConvertedSelect.value;
 
-            const valorConvertido = converterUnidades(valor, unidade1, unidade2);
+            const valorConvertido = converterMedidas(valor, medidaInserida, medidaConvertida);
 
-            resultado.innerHTML = `${valor} ${unidade1} é igual a ${valorConvertido} ${unidade2}`;
+            resultadoFinal.innerHTML = `${valor} ${medidaInserida} é equivalente a ${valorConvertido} ${medidaConvertida}`;
+
         });
 
     </script>
